@@ -8,6 +8,7 @@ RUN npm run build
 
 # Stage 2: Serve the application with Nginx
 FROM nginx:1.19.0-alpine as serve
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
+COPY --from=build /app/dist/frontend /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
