@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { LayoutComponent } from './components/layout/layout.component';
-
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/';
+// import { LayoutComponent } from './layout.component';
+import { LayoutComponent } from './layout.component';
 
 
 @NgModule({
@@ -11,7 +11,6 @@ import { LayoutComponent } from './components/layout/layout.component';
     NavbarComponent,
     SidebarComponent,
     LayoutComponent,
-
   ],
   exports: [
     NavbarComponent,
@@ -22,4 +21,4 @@ import { LayoutComponent } from './components/layout/layout.component';
     CommonModule
   ]
 })
-export class CoreModule { }
+export class LayoutModule { }
