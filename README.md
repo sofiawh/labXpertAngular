@@ -29,3 +29,7 @@ Pour construire le projet, suivez ces étapes :
 4. Exécutez le conteneur Docker avec `docker run --name Labxpert-frontend -p 8080:8080 frontend`. Cela démarrera un conteneur Docker nommé `Labxpert-frontend`, mappera le port 8080 dans le conteneur au port 8080 sur l'hôte, et utilisera l'image Docker `frontend`.
 
 Après avoir suivi ces étapes, vous pouvez naviguer vers `http://localhost:8080` dans votre navigateur web pour voir l'application Angular.
+
+## 📁 Structure du Projet
+
+Si vous n'êtes pas familier avec la structure du projet, nous vous recommandons de visiter cet [A simple Angular folder structure that makes development feel natural and easy](https://dev.to/vixero/a-simple-angular-folder-structure-that-makes-development-feel-natural-and-easy-241d) qui propose une structure de dossier Angular simple qui rend le développement naturel et facile.
