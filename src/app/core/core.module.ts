@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { LayoutComponent } from './components/layout/layout.component';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {SidebarComponent} from './components/sidebar/sidebar.component';
+import {LayoutComponent} from './components/layout/layout.component';
+import {RouterModule, RouterOutlet} from "@angular/router";
+import {SampleComponent} from "../features/sample/sample.component";
+import {MainComponent} from './components/main/main.component';
 
 
 @NgModule({
@@ -11,15 +13,16 @@ import { LayoutComponent } from './components/layout/layout.component';
     NavbarComponent,
     SidebarComponent,
     LayoutComponent,
-
+    MainComponent,
   ],
   exports: [
-    NavbarComponent,
-    SidebarComponent,
-    LayoutComponent
+    LayoutComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    RouterOutlet,
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+}
