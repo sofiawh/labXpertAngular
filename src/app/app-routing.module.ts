@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import { HomeComponent } from './features/home/home.component';
 import {SampleComponent} from "./features/sample/sample.component";
 
 /*
@@ -11,9 +12,14 @@ import {SampleComponent} from "./features/sample/sample.component";
  */
 const routes: Routes = [
   {
+    path: '',
+    component: HomeComponent,
+    data: { title: 'Accueil Page' }
+  },
+  {
     path: 'echantillon',
     component: SampleComponent,
-    data: {title: 'Echantillon'}
+    data: { title: 'Echantillon Page' }
   },
   // other routes...
 ];
@@ -22,5 +28,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }
