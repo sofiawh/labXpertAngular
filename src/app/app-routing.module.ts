@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import {SampleComponent} from "./features/sample/sample.component";
+import {PatientComponent} from "./features/patient/patient.component";
 
 /*
   To @Sofia and @Mariam here where we define the routes of our application
@@ -20,6 +21,11 @@ const routes: Routes = [
     path: 'echantillon',
     component: SampleComponent,
     data: { title: 'Echantillon Page' }
+  },
+  {
+    path: 'patient',
+    component: PatientComponent,
+    data: { title: 'Patient Page' }
   },
   // other routes...
 ];
