@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SpinnerComponent} from "./components/spinner/spinner.component";
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 
 
 @NgModule({
   declarations: [
-    SpinnerComponent
+    SpinnerComponent,
+    CapitalizePipe,
   ],
   exports: [
     SpinnerComponent
