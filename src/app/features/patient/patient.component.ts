@@ -16,11 +16,14 @@ export class PatientComponent implements OnInit {
 
   ngOnInit(): void {
     this.patientForm = this.formBuilder.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
-      email: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      patientEmail: ['', Validators.required],
       birthday: ['', Validators.required],
       gender: ['', Validators.required],
+      address: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
 
     });
   }
