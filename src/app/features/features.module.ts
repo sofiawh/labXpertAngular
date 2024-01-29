@@ -4,13 +4,15 @@ import {SampleComponent} from "./sample/sample.component";
 import { HomeComponent } from './home/home.component';
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 import { PatientComponent } from './patient/patient.component';
+import { SchedulingComponent } from './scheduling/scheduling.component';
 
 
 @NgModule({
   declarations: [
     SampleComponent,
     HomeComponent,
-    PatientComponent
+    PatientComponent,
+    SchedulingComponent
   ],
   exports: [
     SampleComponent

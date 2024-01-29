@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import {SampleComponent} from "./features/sample/sample.component";
 import {PatientComponent} from "./features/patient/patient.component";
+import {SchedulingComponent} from "./features/scheduling/scheduling.component";
 
 /*
   To @Sofia and @Mariam here where we define the routes of our application
@@ -26,6 +27,11 @@ const routes: Routes = [
     path: 'patient',
     component: PatientComponent,
     data: { title: 'Patient Page' }
+  },
+  {
+    path: 'plannification',
+    component: SchedulingComponent,
+    data: { title: 'Plannification Page' }
   },
   // other routes...
 ];
