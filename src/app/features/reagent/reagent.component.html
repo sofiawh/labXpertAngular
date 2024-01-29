@@ -10,7 +10,6 @@
                 class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
                 {{ button }}
             </button>
-
             <!-- Main modal -->
             <div id="crud-modal" tabindex="-1" aria-hidden="true"
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -21,7 +20,7 @@
                         <div
                             class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Ajouter un nouveau Utilisateur
+                                Ajouter un nouveau Réactif
                             </h3>
                             <button type="button"
                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -37,54 +36,57 @@
                             </button>
                         </div>
                         <!-- Modal body -->
-                        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="p-4 md:p-5">
+                        <form [formGroup]="reagentForm" (ngSubmit)="onSubmit()" class="p-4 md:p-5">
                             <div class="grid gap-4 mb-4 grid-cols-2">
                                 <div class="col-span-2">
-                                    <label for="username"
+                                    <label for="reagentName"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                         Nom
                                     </label>
-                                    <input type="text" id="username" formControlName="username" placeholder="Ecire le nom"
+                                    <input type="text" id="reagentName" formControlName="reagentName" placeholder="Ecire nom de reagent"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 </div>
-                                <div class="col-span-2">
-                                    <label for="email"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                        Email
+                                <div class="col-span-2 sm:col-span-1">
+                                    <label for="expirationDate"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                           Expiration Date
                                     </label>
-                                    <input type="email" id="email" formControlName="email" placeholder="Ecire l'email"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <div class="relative max-w-sm">
+                                      <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                          <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                        </svg>
+                                      </div>
+                                      <input id="expirationDate" datepicker type="text" formControlName="expirationDate"
+                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                             placeholder="dd/MM/yyyy"></div>
                                 </div>
                                 <div class="col-span-2">
-                                    <label for="password"
+                                    <label for="reagentSerialNumber"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                        Password
+                                        Reagent Serial Number
                                     </label>
-                                    <input type="password" id="password" formControlName="password" placeholder="Ecire le pass word"
+                                    <input type="text" id="reagentSerialNumber" formControlName="reagentSerialNumber"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 </div>
                                 <div class="col-span-2">
-                                    <label for="userRole"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                                    <select id="userRole" formControlName="userRole"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option value="" disabled selected>
-                                            Selectionner
-                                        </option>
-                                        <!-- TODO : @ayoub i need to add the patient list -->
-                                        <option value="TECHNICIAN">TECHNICIAN</option>
-                                        <option value="LABORATORY_MANAGER">LABORATORY_MANAGER</option>
-                                        <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                                    </select>
-                                </div>
-                                <div class="col-span-2">
-                                    <label for="personalInfo"
+                                    <label for="supplier"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                        personalInfo
+                                        Supplier
                                     </label>
-                                    <textarea id="personalInfo" rows="4" formControlName="personalInfo"
+                                    <input type="text" id="supplier" formControlName="supplier"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="reagentDescription"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Reagent Description
+                                    </label>
+                                    <textarea id="reagentDescription" rows="4" formControlName="reagentDescription"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Ecire les Informations Personnelles"></textarea>
+                                        placeholder="Ecire Votre Reagent Description"></textarea>
                                 </div>
                             </div>
                             <button type="submit"
@@ -110,13 +112,19 @@
                                     Nom
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Email
+                                    Expiration Date
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Informations personnelles
+                                    Serial Number
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Role
+                                    Supplier
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Reagent Status
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Description
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                     Edit
@@ -133,13 +141,19 @@
                                     user name
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    user@email.com
+                                    Expiration Date
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
-                                    Informations personnelles
+                                    Serial Number
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    Role
+                                    Supplier
+                                </td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                    Reagent Status
+                                </td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                    Description
                                 </td>
                                 <td
                                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-6">

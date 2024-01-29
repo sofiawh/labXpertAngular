@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import {SampleComponent} from "./features/sample/sample.component";
 import { UserComponent } from './features/user/user.component';
+import { ReagentComponent } from './features/reagent/reagent.component';
 
 /*
   To @Sofia and @Mariam here where we define the routes of our application
@@ -26,6 +27,11 @@ const routes: Routes = [
     path: 'utilisateur',
     component: UserComponent,
     data: { title: 'Utilisateur Page' }
+  },
+  {
+    path: 'reagent',
+    component: ReagentComponent,
+    data: { title: 'Réactifs Page' }
   },
   // other routes...
 ];

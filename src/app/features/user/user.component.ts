@@ -8,13 +8,15 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class UserComponent implements OnInit {
 
-  sampleForm: FormGroup = new FormGroup({});
+  userForm: FormGroup = new FormGroup({});
 
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit(): void {
-    this.sampleForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+    this.userForm = this.formBuilder.group({
+      email: ['', Validators.required,Validators.email],
+     // @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", message = "Password must contain at least one digit, one lowercase, one uppercase and one special character")
+
+      password: ['', Validators.required,Validators.pattern],
       personalInfo: ['', Validators.required],
       username: ['', Validators.required],
       userRole: ['', Validators.required],
@@ -22,14 +24,14 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.sampleForm.valid) {
+    if (this.userForm.valid) {
       console.log('Form is valid');
     } else {
       console.log('Form is not valid');
-      console.log('Form errors:', this.sampleForm.errors);
+      console.log('Form errors:', this.userForm.errors);
     }
   } 
-  
+
   title: string = 'Utilisateur';
   paragraph: string = 'Cette page est dédiée à l\'enregistrement des utilisateurs. Elle comprend un composant spécifique pour l\'enregistrement des utilisateurs. ';
   button: string = 'ajouter un utilisateur';
