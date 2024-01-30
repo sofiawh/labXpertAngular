@@ -4,7 +4,6 @@ import {SampleComponent} from "./sample/sample.component";
 import { HomeComponent } from './home/home.component';
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 
-
 @NgModule({
   declarations: [
     SampleComponent,
