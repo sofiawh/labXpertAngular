@@ -6,7 +6,6 @@ import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 import { PatientComponent } from './patient/patient.component';
 import { SchedulingComponent } from './scheduling/scheduling.component';
 
-
 @NgModule({
   declarations: [
     SampleComponent,
