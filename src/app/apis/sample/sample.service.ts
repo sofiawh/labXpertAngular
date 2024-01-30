@@ -30,17 +30,20 @@ export class SampleService {
     return this.http.get<Sample[]>(this.apiUrl + '/api/v1/samples');
   }
 
+  getSample(id: number): Observable<Sample> {
+    return this.http.get<Sample>(this.apiUrl + '/api/v1/samples/' + id);
+  }
+
   addSample(sample: Sample): void {
     this.samples.push(sample);
   }
 
-  deleteSample(id: number): void {
-    let index = this.samples.findIndex(s => s.sampleId === id);
-    this.samples.splice(index, 1);
+  deleteSample(id: number): Observable<void> {
+    return this.http.delete<void>(this.apiUrl + '/api/v1/samples/' + id, {responseType: 'text' as 'json'});
   }
 
-  updateSample(sample: Sample): void {
-    let index = this.samples.findIndex(s => s.sampleId === sample.sampleId);
-    this.samples[index] = sample;
-  }
+  // updateSample(sample: Sample): void {
+  //   let index = this.samples.findIndex(s => s.sampleId === sample.sampleId);
+  //   this.samples[index] = sample;
+  // }
 }

@@ -19,20 +19,8 @@ export class SampleComponent implements OnInit {
 
 
   samples: Sample[] = [];
-  // TODO : @Ayoub remove this patient list after the implementation of the patient service
-  patients: Patient[] = [
-    {
-      patientID: 1,
-      address: 'address',
-      dateOfBirth: new Date(Date.now()),
-      firstName: 'ayoub',
-      gender: Gender.MALE,
-      lastName: 'ait si ahmad',
-      patientEmail: 'ayoub@gmail.com',
-      phoneNumber: '0606060606'
-    }
-  ];
   sampleForm: FormGroup = new FormGroup({});
+  showNotification: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private sampleService: SampleService) {
@@ -50,17 +38,15 @@ export class SampleComponent implements OnInit {
       sampleDescription: ['', Validators.required],
     });
 
-    // Get all samples
     // TODO : @Ayoub I need to make more reasearch about the Observable and the subscribe
+    // Get all samples
     this.sampleService.getSamples().subscribe((samples: Sample[]) => {
       this.samples = samples;
     });
-    console.log(this.samples.values())
   }
 
   // submit the form and add the sample to the list
   onSubmit() {
-    // console.log('Form submitted:', this.sampleForm.value);
     if (this.sampleForm.valid) {
       let sample: Sample = this.sampleForm.value;
       this.sampleService.addSample(sample);
@@ -69,7 +55,10 @@ export class SampleComponent implements OnInit {
 
   // delete the sample from the list
   onDelete(id: number) {
-    this.sampleService.deleteSample(id);
+    this.sampleService.deleteSample(id).subscribe(() => {
+        this.samples = this.samples.filter(s => s.sampleID !== id);
+      }
+    );
   }
 
   title: string = 'Echantillons';
