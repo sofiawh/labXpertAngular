@@ -34,16 +34,16 @@ export class SampleService {
     return this.http.get<Sample>(this.apiUrl + '/api/v1/samples/' + id);
   }
 
-  addSample(sample: Sample): void {
-    this.samples.push(sample);
+
+  addSample(sample: Sample): Observable<Sample> {
+    return this.http.post<Sample>(this.apiUrl + '/api/v1/samples', sample);
   }
 
   deleteSample(id: number): Observable<void> {
     return this.http.delete<void>(this.apiUrl + '/api/v1/samples/' + id, {responseType: 'text' as 'json'});
   }
 
-  // updateSample(sample: Sample): void {
-  //   let index = this.samples.findIndex(s => s.sampleId === sample.sampleId);
-  //   this.samples[index] = sample;
-  // }
+  updateSample(sample: Sample): Observable<Sample> {
+    return this.http.put<Sample>(this.apiUrl + '/api/v1/samples/' + sample.sampleID, sample);
+  }
 }

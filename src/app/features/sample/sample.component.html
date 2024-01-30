@@ -44,14 +44,18 @@
                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Selectionner un échantillon
                   </label>
-                  <select id="name" formControlName="name"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="" disabled selected>
-                      Selectionner
-                    </option>
-                    <!-- TODO : @ayoub i need to add the patient list -->
-                    <option value="TV">Ayoub Ait Si Ahmad</option>
-                  </select>
+                  <div formGroupName="patientDTO">
+                    <select id="name" formControlName="patientID"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                      <option value="" disabled selected>
+                        Selectionner
+                      </option>
+                      <!-- Use *ngFor to loop over the patients array -->
+                      <option *ngFor="let patient of patients" [value]="patient.patientID">
+                        {{ patient.firstName }} {{ patient.lastName }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                   <label for="date"
@@ -168,7 +172,12 @@
                 {{ sample.sampleDescription }}
               </td>
               <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                <button class="text-indigo-600 hover:text-indigo-900">Edit</button>
+                <!-- TODO : @ayoub i need to fix this -->
+                <button (click)="onEdit(sample)" disabled
+                        data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                        class="text-indigo-600 hover:text-indigo-900">
+                  Edit
+                </button>
               </td>
               <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                 <button (click)="onDelete(sample.sampleID)"
