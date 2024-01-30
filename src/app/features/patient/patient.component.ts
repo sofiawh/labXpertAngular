@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {patientService} from "../services/patient.service";
+import {Observable} from "rxjs";
+import {Patient} from "../../models/patient.model";
 
 @Component({
   selector: 'app-patient',
@@ -9,12 +12,14 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class PatientComponent implements OnInit {
 
   patientForm: FormGroup = new FormGroup({});
+  patients$!: Observable<Patient[]>;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private patientService: patientService) {
 
   }
 
   ngOnInit(): void {
+    this.patients$ = this.patientService.getAllPatients();
     this.patientForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

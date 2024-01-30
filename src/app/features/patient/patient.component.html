@@ -40,27 +40,27 @@
             <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="p-4 md:p-5">
               <div class="grid gap-4 mb-4 grid-cols-2">
                 <div class="col-span-2">
-                  <label for="lastname"
+                  <label for="lastName"
                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Nom
                   </label>
-                  <input type="text" id="lastname" formControlName="lastname"
+                  <input type="text" id="lastName" formControlName="lastName"
                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 </div>
                 <div class="col-span-2">
-                  <label for="firstname"
+                  <label for="firstName"
                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Prenom
                   </label>
-                  <input type="text" id="firstname" formControlName="firstname"
+                  <input type="text" id="firstName" formControlName="firstName"
                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 </div>
                 <div class="col-span-2">
-                  <label for="email"
+                  <label for="patientEmail"
                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Email
                   </label>
-                  <input type="email" id="email" formControlName="email"
+                  <input type="text" id="patientEmail" formControlName="patientEmail"
                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 </div>
                 <div class="col-span-2">
@@ -151,28 +151,28 @@
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
-            <tr>
+            <tr *ngFor="let patient of patients$ | async ">
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                Anas
+                {{ patient.firstName }}
               </td>
 
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                BADA
+                {{ patient.lastName }}
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                anas@gmail.com
+                {{ patient.patientEmail }}
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                58 anfa, casablanca
+                {{ patient.address }}
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                0600251523
+                {{ patient.phoneNumber }}
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                2021-05-12 00:00:00
+                {{ patient.dateOfBirth }}
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                Masculin
+                {{ patient.gender }}
               </td>
               <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                 <a href="#" class="text-indigo-600 hover:text-indigo-900">Editer<span
