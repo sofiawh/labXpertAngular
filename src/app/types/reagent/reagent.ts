@@ -1,6 +1,6 @@
 import {ReagentStatus} from "./reagent-status";
 
-export interface User {
+export interface Reagent {
     reagentID : number;
     reagentName : string;
     reagentDescription : string;
