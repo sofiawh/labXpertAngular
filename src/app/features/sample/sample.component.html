@@ -42,16 +42,20 @@
                 <div class="col-span-2">
                   <label for="name"
                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Selectionner un patient
+                    Selectionner un échantillon
                   </label>
-                  <select id="name" formControlName="name"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="" disabled selected>
-                      Selectionner
-                    </option>
-                    <!-- TODO : @ayoub i need to add the patient list -->
-                    <option value="TV">Ayoub Ait Si Ahmad</option>
-                  </select>
+                  <div formGroupName="patientDTO">
+                    <select id="name" formControlName="patientID"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                      <option value="" disabled selected>
+                        Selectionner
+                      </option>
+                      <!-- Use *ngFor to loop over the patients array -->
+                      <option *ngFor="let patient of patients" [value]="patient.patientID">
+                        {{ patient.firstName }} {{ patient.lastName }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                   <label for="date"
@@ -66,14 +70,15 @@
                           d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                       </svg>
                     </div>
-                    <input id="date" datepicker type="text" formControlName="date"
+                    <input id="date" formControlName="collectionDate" type="date"
                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           placeholder="dd/MM/yyyy"></div>
+                           placeholder="Select date">
+                  </div>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                   <label for="type"
                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Analyse Type</label>
-                  <select id="type" formControlName="type"
+                  <select id="type" formControlName="analysisType"
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option value="" disabled selected>
                       Selectionner
@@ -90,12 +95,12 @@
                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Description
                   </label>
-                  <textarea id="description" rows="4" formControlName="description"
+                  <textarea id="description" rows="4" formControlName="sampleDescription"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Ecire Votre description"></textarea>
                 </div>
               </div>
-              <button type="submit"
+              <button type="submit" [disabled]="sampleForm.invalid"
                       class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Ajouter
               </button>
@@ -130,38 +135,66 @@
                 Description
               </th>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                Action
+                Edit
+              </th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                Suprrimer
               </th>
 
             </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
-            <tr>
-              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Anas
-                Bada
+            <!-- ngIf is for checking if the data is available or not -->
+            <tbody *ngIf="samples.length > 0; else noData"
+                   class="divide-y divide-gray-200 bg-white">
+            <!-- ngFor is for looping through the data -->
+            <tr *ngFor="let sample of samples">
+              <td
+                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                {{ sample.patientDTO?.firstName }} {{ sample.patientDTO?.lastName }}
               </td>
 
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                 <span
-                  class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">BLOOD_CHEMISTRY</span>
+                  class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">
+                  {{ sample.analysisType }}
+                </span>
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                2021-05-12 00:00:00
+                {{ sample.collectionDate }}
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
                 <span
-                  class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">PENDING</span>
+                  class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">
+                  {{ sample.sampleStatus }}
+                </span>
               </td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                {{ sample.sampleDescription }}
               </td>
               <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                <!-- TODO : @ayoub i need to add the button tag not anchor -->
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                  class="sr-only">, Lindsay Walton</span></a>
+                <!-- TODO : @ayoub i need to fix this -->
+                <button (click)="onEdit(sample)" disabled
+                        data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                        class="text-indigo-600 hover:text-indigo-900">
+                  Edit
+                </button>
+              </td>
+              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                <button (click)="onDelete(sample.sampleID)"
+                        class="text-red-600 hover:text-red-900">
+                  Supprimer
+                </button>
               </td>
             </tr>
             </tbody>
+            <!-- This Part is for if there is no data Using ngIf and ngElse and ng-template -->
+            <ng-template #noData>
+              <tr>
+                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                  Aucun échantillon n'est disponible
+                </td>
+              </tr>
+            </ng-template>
           </table>
         </div>
       </div>
