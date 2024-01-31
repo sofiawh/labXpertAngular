@@ -1,8 +1,19 @@
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { SampleState } from '../reducers/sample.reducers';
 
-import { createSelector } from '@ngrx/store';
-import { AppState } from '../reducers/sample.reducers';
+/**
+ * Sample state
+ * @interface
+ * @Author : Ayoub ait si ahmad
+ */
+export const selectSampleState = createFeatureSelector<SampleState>('samples');
 
-export const selectSamples = (state: AppState) => state.samples;
+export const selectSamples = createSelector(
+  selectSampleState,
+  (state) => state.samples
+);
 
-export const selectSampleById = (id: number) =>
-  createSelector(selectSamples, samples => samples.find(sample => sample.sampleID === id));
+export const selectError = createSelector(
+  selectSampleState,
+  (state) => state.error
+);

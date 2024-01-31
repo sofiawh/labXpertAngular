@@ -1,33 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import {EMPTY} from "rxjs";
-import { catchError, map, exhaustMap,mergeMap, tap } from 'rxjs/operators';
-import {loadSamples,loadSamplesSuccess,loadSamplesFailure} from '../actions/sample.actions';
-import { SampleService} from "../../../apis/sample/sample.service";
+import { catchError, map, switchMap } from 'rxjs/operators';
+import * as SampleActions from '../actions/sample.actions';
+import { SampleService } from 'src/app/apis/sample/sample.service';
 
+/**
+ * Sample effects
+ * @class
+ * @Author : Ayoub ait si ahmad
+ */
 @Injectable()
 export class SampleEffects {
-  /*
-  loadSamples$ = createEffect(() => this.actions$.pipe(
-    ofType(loadSamples),
-    mergeMap(() => this.sampleService.getSamples()
-      .pipe(
-        tap(samples => console.log("hnaaa effects",samples)), // Add this line
-        map(samples => loadSamplesSuccess({samples})), // Adjust this line
-        catchError(error => of(loadSamplesFailure({error}))))
+  loadSamples$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SampleActions.loadSamples),
+      switchMap(() =>
+        this.sampleService.getSamples().pipe(
+          map((samples) => SampleActions.loadSamplesSuccess({ samples })),
+          catchError((error) => of(SampleActions.loadSamplesFailure({ error })))
+        )
+      )
     )
-  ));
+  );
 
-   */
+  addSample$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SampleActions.addSample),
+      switchMap(({ sample }) =>
+        this.sampleService.addSample(sample).pipe(
+          map((addedSample) => SampleActions.addSampleSuccess({ sample: addedSample })),
+          catchError((error) => of(SampleActions.addSampleFailure({ error })))
+        )
+      )
+    )
+  );
 
-  loadSamples$ = createEffect(() => this.actions$.pipe(
-      ofType(loadSamples),
-      exhaustMap(() => this.sampleService.getSamples()
-        .pipe(
-          map(samples => loadSamplesSuccess({ samples })),
-          catchError(() => EMPTY)
-        ))
+  deleteSample$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SampleActions.deleteSample),
+      switchMap(({ id }) =>
+        this.sampleService.deleteSample(id).pipe(
+          map(() => SampleActions.deleteSampleSuccess({ id })),
+          catchError((error) => of(SampleActions.deleteSampleFailure({ error })))
+        )
+      )
     )
   );
 
