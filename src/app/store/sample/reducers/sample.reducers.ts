@@ -1,6 +1,6 @@
 import {Sample} from "../../../types/sample/sample";
-import {addSample, updateSample, deleteSample} from "../actions/sample.actions";
-
+import {loadSamples,loadSamplesSuccess,loadSamplesFailure} from "../actions/sample.actions";
+import {createReducer, on} from "@ngrx/store";
 export interface AppState {
   samples: Sample[];
 }
@@ -9,20 +9,9 @@ export const initialState: AppState = {
   samples: []
 };
 
-export function sampleReducers(state = initialState, action: any): AppState {
-  switch (action.type) {
-    case addSample.type:
-      return {
-        ...state, samples: [...state.samples, action.sample]
-      };
-    case updateSample.type:
-      return {
-        ...state,
-        samples: state.samples.map(sample => (sample.sampleID === action.sample.sampleID ? action.sample : sample))
-      };
-    case deleteSample.type:
-      return {...state, samples: state.samples.filter(sample => sample.sampleID !== action.id)};
-    default:
-      return state;
-  }
-}
+export const sampleReducer = createReducer(
+  initialState,
+  on(loadSamples, state => state),
+  on(loadSamplesSuccess, (state, {samples}) => ({...state, samples: samples})),
+  on(loadSamplesFailure, state => state)
+);

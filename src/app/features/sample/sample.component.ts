@@ -4,10 +4,12 @@ import {SampleService} from 'src/app/apis/sample/sample.service';
 import {Gender} from 'src/app/types/patient/gender';
 import {Patient} from 'src/app/types/patient/patient';
 import {Sample} from 'src/app/types/sample/sample';
+import * as sampleActions from '../../store/sample/actions/sample.actions';
 
 // import of store
 import {Store} from "@ngrx/store";
-import {addSample, deleteSample, updateSample} from "../../store/sample/actions/sample.actions";
+import {loadSamples,loadSamplesFailure,loadSamplesSuccess} from "../../store/sample/actions/sample.actions";
+import {Observable} from "rxjs";
 
 /**
  * Sample component
@@ -17,17 +19,16 @@ import {addSample, deleteSample, updateSample} from "../../store/sample/actions/
 @Component({
   selector: 'app-sample',
   templateUrl: './sample.component.html',
-  styleUrls: ['./sample.component.css']
+  styleUrls: ['./sample.component.css'],
 })
 export class SampleComponent implements OnInit {
 
-  editingSampleId: number | null = null;
-  samples: Sample[] = [];
+  samples$: Observable<Sample[]> = this.store.select(state => state.samples);
+
 
   sampleForm: FormGroup = new FormGroup({});
 
   constructor(private formBuilder: FormBuilder,
-              private sampleService: SampleService,
               private store: Store<{ samples: Sample[] }>) {
 
   }
@@ -43,54 +44,37 @@ export class SampleComponent implements OnInit {
       })
     });
 
-    // TODO : @Ayoub I need to make more reasearch about the Observable and the subscribe
-    this.sampleService.getSamples().subscribe((samples: Sample[]) => {
-      this.samples = samples;
+    this.store.dispatch(ٍٍٍٍ)
+    // make a console.log to see the result
+    this.samples$.subscribe((samples) => {
+      console.log('hahoma jay : ', samples);
     });
-  }
-
-  addSample(sample: Sample) {
-    this.store.dispatch(addSample({sample: this.sampleForm.value}));
+    // TODO : @Ayoub I need to make more reasearch about the Observable and the subscribe
   }
 
   onSubmit() {
     if (this.sampleForm.valid) {
       let sample: Sample = this.sampleForm.value;
-      if (this.editingSampleId) {
-        sample.sampleID = this.editingSampleId;
-        this.sampleService.updateSample(sample).subscribe((updatedSample: Sample) => {
-          this.samples = this.samples.map(s => s.sampleID === updatedSample.sampleID ? updatedSample : s);
-          this.editingSampleId = null;
-          this.sampleForm.reset();
-        });
-      } else {
-        this.store.dispatch(addSample({sample: sample}));
-        this.sampleService.addSample(sample).subscribe((newSample: Sample) => {
-          this.samples.push(newSample);
-        });
-        this.sampleForm.reset();
-      }
+      console.log(sample);
     }
   }
 
-  onEdit(sample: Sample) {
-    this.editingSampleId = sample.sampleID;
-    this.sampleForm.setValue({
-      analysisType: sample.analysisType,
-      sampleDescription: sample.sampleDescription,
-      collectionDate: sample.collectionDate,
-      patientDTO: {
-        patientID: sample.patientDTO.patientID
-      }
-    });
-  }
-
+  /*
+    onEdit(sample: Sample) {
+      this.editingSampleId = sample.sampleID;
+      this.sampleForm.setValue({
+        analysisType: sample.analysisType,
+        sampleDescription: sample.sampleDescription,
+        collectionDate: sample.collectionDate,
+        patientDTO: {
+          patientID: sample.patientDTO.patientID
+        }
+      });
+    }
+   */
 
   onDelete(id: number) {
-    this.sampleService.deleteSample(id).subscribe(() => {
-        this.samples = this.samples.filter(s => s.sampleID !== id);
-      }
-    );
+
   }
 
   title: string = 'Echantillons';
