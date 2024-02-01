@@ -141,49 +141,48 @@
             </tr>
             </thead>
             <!-- ngIf is for checking if the data is available or not -->
-            <tbody *ngIf="(samples$ | async)?.length > 0; else noData" class="divide-y divide-gray-200 bg-white">
-            <!-- ngFor is for looping through the data -->
-            <tr *ngFor="let sample of samples$ | async">
-              <td
-                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                {{ sample.patientDTO.firstName }} {{ sample.patientDTO.lastName }}
+            <tbody>
+            <tr *ngIf="(samples$ | async)?.length === 0; else sampleList">
+              <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                Aucun échantillon n'est disponible
               </td>
+            </tr>
+            <!-- ngFor is for looping through the data -->
+            <ng-template #sampleList>
+              <tr *ngFor="let sample of samples$ | async">
+                <td
+                  class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                  {{ sample.patientDTO.firstName }} {{ sample.patientDTO.lastName }}
+                </td>
 
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                 <span
                   class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">
                   {{ sample.analysisType }}
                 </span>
-              </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                {{ sample.collectionDate }}
-              </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  {{ sample.collectionDate }}
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
                 <span
                   class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">
                   {{ sample.sampleStatus }}
                 </span>
-              </td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                {{ sample.sampleDescription }}
-              </td>
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  {{ sample.sampleDescription }}
+                </td>
 
-              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                <button (click)="onDelete(sample.sampleID)"
-                        class="text-red-600 hover:text-red-900">
-                  Supprimer
-                </button>
-              </td>
-            </tr>
-            </tbody>
-            <!-- This Part is for if there is no data Using ngIf and ngElse and ng-template -->
-            <ng-template #noData>
-              <tr>
-                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                  Aucun échantillon n'est disponible
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                  <button (click)="onDelete(sample.sampleID)"
+                          class="text-red-600 hover:text-red-900">
+                    Supprimer
+                  </button>
                 </td>
               </tr>
             </ng-template>
+            </tbody>
           </table>
         </div>
       </div>
