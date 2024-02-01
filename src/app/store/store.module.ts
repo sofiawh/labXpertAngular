@@ -9,7 +9,7 @@ import {patientReducers} from "./patient/reducers/patient.reducers";
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({sample : sampleReducers}),
+    StoreModule.forRoot({patient : sampleReducers}),
     StoreModule.forRoot({patient : patientReducers})
   ]
 })

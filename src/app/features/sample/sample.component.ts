@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {SampleService} from 'src/app/apis/sample/sample.service';
-import {Gender} from 'src/app/types/patient/gender';
-import {Patient} from 'src/app/types/patient/patient';
-import {Sample} from 'src/app/types/sample/sample';
-
-// import of store
 import {Store} from "@ngrx/store";
-import {addSample, deleteSample, updateSample} from "../../store/sample/actions/sample.actions";
+import {loadSamples,addSample,deleteSample} from "../../store/sample/actions/sample.actions"
+import {selectError, selectSamples} from "../../store/sample/selectors/sample.selectors"
+import {Patient} from "../../types/patient/patient";
+import {Sample} from "../../types/sample/sample";
+import {Gender} from "../../types/patient/gender";
 
 /**
  * Sample component
@@ -17,23 +15,23 @@ import {addSample, deleteSample, updateSample} from "../../store/sample/actions/
 @Component({
   selector: 'app-sample',
   templateUrl: './sample.component.html',
-  styleUrls: ['./sample.component.css']
+  styleUrls: ['./sample.component.css'],
 })
 export class SampleComponent implements OnInit {
-
-  editingSampleId: number | null = null;
-  samples: Sample[] = [];
-
+  // define the variables
+  samples$ = this.store.select(selectSamples);
+  error$ = this.store.select(selectError);
   sampleForm: FormGroup = new FormGroup({});
 
+  // inject the dependencies
   constructor(private formBuilder: FormBuilder,
-              private sampleService: SampleService,
-              private store: Store<{ samples: Sample[] }>) {
+              private store: Store) {
 
   }
 
+  // define the methods
   ngOnInit(): void {
-
+    // validate the form
     this.sampleForm = this.formBuilder.group({
       analysisType: ['', Validators.required],
       sampleDescription: ['', Validators.required],
@@ -43,60 +41,32 @@ export class SampleComponent implements OnInit {
       })
     });
 
-    // TODO : @Ayoub I need to make more reasearch about the Observable and the subscribe
-    this.sampleService.getSamples().subscribe((samples: Sample[]) => {
-      this.samples = samples;
-    });
+    // load the samples
+    this.store.dispatch(loadSamples());
   }
 
-  addSample(sample: Sample) {
-    this.store.dispatch(addSample({sample: this.sampleForm.value}));
-  }
-
+  // submit the form
   onSubmit() {
     if (this.sampleForm.valid) {
-      let sample: Sample = this.sampleForm.value;
-      if (this.editingSampleId) {
-        sample.sampleID = this.editingSampleId;
-        this.sampleService.updateSample(sample).subscribe((updatedSample: Sample) => {
-          this.samples = this.samples.map(s => s.sampleID === updatedSample.sampleID ? updatedSample : s);
-          this.editingSampleId = null;
-          this.sampleForm.reset();
-        });
-      } else {
-        this.store.dispatch(addSample({sample: sample}));
-        this.sampleService.addSample(sample).subscribe((newSample: Sample) => {
-          this.samples.push(newSample);
-        });
-        this.sampleForm.reset();
-      }
+      // pass the form value to the action
+      this.store.dispatch(addSample({sample: this.sampleForm.value}));
+      this.sampleForm.reset();
+      // TODO : @Ayoub ait si ahmad : I SHOULD FIX THIS
+      document.getElementById('closeModal')?.click();
     }
   }
 
-  onEdit(sample: Sample) {
-    this.editingSampleId = sample.sampleID;
-    this.sampleForm.setValue({
-      analysisType: sample.analysisType,
-      sampleDescription: sample.sampleDescription,
-      collectionDate: sample.collectionDate,
-      patientDTO: {
-        patientID: sample.patientDTO.patientID
-      }
-    });
-  }
-
-
+  // delete the sample
   onDelete(id: number) {
-    this.sampleService.deleteSample(id).subscribe(() => {
-        this.samples = this.samples.filter(s => s.sampleID !== id);
-      }
-    );
+    this.store.dispatch(deleteSample({id}));
   }
 
+  // define the variables
   title: string = 'Echantillons';
   paragraph: string = 'Cette page est dédiée à l\'enregistrement des échantillons. Elle comprend un composant spécifique pour l\'enregistrement des échantillons. ';
   button: string = 'ajouter un échantillon';
 
+  // TODO : @Ayoub ait si ahmad : WHEN THE PATIENTS WILL BE READY I SHOULD FIX THIS @Sofia
   patients: Patient[] = [
     {
       patientID: 2,

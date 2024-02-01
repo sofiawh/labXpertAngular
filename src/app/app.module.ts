@@ -6,8 +6,11 @@ import { AppComponent } from './app.component';
 import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
 import {FeaturesModule} from "./features/features.module";
-import {AppStoreModule} from "./store/store.module";
+import {AppStoreModule} from "./store/app.store.module";
 import {HttpClientModule} from "@angular/common/http";
+import {EffectsModule} from "@ngrx/effects";
+import {SampleEffects} from "./store/sample/effects/sample.effects";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +22,8 @@ import {HttpClientModule} from "@angular/common/http";
     FeaturesModule,
     SharedModule,
     AppStoreModule,
-    HttpClientModule
+    HttpClientModule,
+    EffectsModule.forRoot([SampleEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

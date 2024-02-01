@@ -1,28 +1,38 @@
-import {Sample} from "../../../types/sample/sample";
-import {addSample, updateSample, deleteSample} from "../actions/sample.actions";
+import { createReducer, on } from '@ngrx/store';
+import * as SampleActions from '../actions/sample.actions';
+import { Sample } from 'src/app/types/sample/sample';
 
-export interface AppState {
+/**
+ * Sample state
+ * @interface
+ */
+export interface SampleState {
   samples: Sample[];
+  error: any;
 }
 
-export const initialState: AppState = {
-  samples: []
+/**
+ * Initial state
+ */
+export const initialState: SampleState = {
+  samples: [],
+  error: null,
 };
+/**
+ * Sample reducer
+ * @function
+ * @param {SampleState} state
+ * @param {SampleActions} action
+ * @returns {SampleState}
+ */
+export const sampleReducer = createReducer(
+  initialState,
+  on(SampleActions.loadSamplesSuccess, (state, { samples }) => ({ ...state, samples })),
+  on(SampleActions.loadSamplesFailure, (state, { error }) => ({ ...state, error })),
 
-export function sampleReducers(state = initialState, action: any): AppState {
-  switch (action.type) {
-    case addSample.type:
-      return {
-        ...state, samples: [...state.samples, action.sample]
-      };
-    case updateSample.type:
-      return {
-        ...state,
-        samples: state.samples.map(sample => (sample.sampleID === action.sample.sampleID ? action.sample : sample))
-      };
-    case deleteSample.type:
-      return {...state, samples: state.samples.filter(sample => sample.sampleID !== action.id)};
-    default:
-      return state;
-  }
-}
+  on(SampleActions.addSampleSuccess, (state, { sample }) => ({ ...state, samples: [...state.samples, sample] })),
+  on(SampleActions.addSampleFailure, (state, { error }) => ({ ...state, error })),
+
+  on(SampleActions.deleteSampleSuccess, (state, { id }) => ({ ...state, samples: state.samples.filter(s => s.sampleID !== id) })),
+  on(SampleActions.deleteSampleFailure, (state, { error }) => ({ ...state, error })),
+);
