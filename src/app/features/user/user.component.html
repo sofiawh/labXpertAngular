@@ -89,7 +89,7 @@
                                         placeholder="Ecire les Informations Personnelles"></textarea>
                                 </div>
                             </div>
-                            <button type="submit"
+                            <button type="submit"  [disabled]="userForm.invalid"
                                 class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 Ajouter
                             </button>
@@ -128,10 +128,9 @@
                                 </th>
                             </tr>
                         </thead>
-                        <!-- ngIf is for checking if the data is available or not -->
-                        <tbody *ngIf="users.length > 0; else noData" class="divide-y divide-gray-200 bg-white">
+                        <tbody class="divide-y divide-gray-200 bg-white">
                             <!-- ngFor is for looping through the data -->
-                            <tr *ngFor="let user of users">
+                            <tr *ngFor="let user of users$ | async">
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {{ user.username }}
                                 </td>
@@ -144,30 +143,23 @@
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     {{ user.userRole }}
                                 </td>
-                                <td
+                                <!-- edit -->
+                                <!-- <td
                                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <!-- TODO : @ayoub i need to fix this -->
                                     <button (click)="onEdit(user)" disabled data-modal-target="crud-modal"
                                         data-modal-toggle="crud-modal" class="text-indigo-600 hover:text-indigo-900">
                                         Edit
                                     </button>
-                                </td>
+                                </td> -->
+                                <!-- delete -->
                                 <td
                                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <button (click)="onDelete(user.userDTO)" class="text-red-600 hover:text-red-900">
+                                    <button (click)="onDelete(user.userId)" class="text-red-600 hover:text-red-900">
                                         Supprimer
                                     </button>
                                 </td>
                             </tr>
                         </tbody>
-                        <!-- This Part is for if there is no data Using ngIf and ngElse and ng-template -->
-                        <ng-template #noData>
-                            <tr>
-                                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                    Aucun échantillon n'est disponible
-                                </td>
-                            </tr>
-                        </ng-template>
                     </table>
                 </div>
             </div>
