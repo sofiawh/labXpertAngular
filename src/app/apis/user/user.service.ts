@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from 'src/app/types/user/user';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import { environment } from 'src/environments/environment';
 
 /**
  * User service
@@ -13,8 +14,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class UserService {
-  private user: User[] = [];
-  private apiUrl = 'http://localhost:9090';
+  private apiUrl = environment.apiUrl + '/users'; 
 
   /**
    * The constructor Loaded before the ngOnInit() method
@@ -25,24 +25,24 @@ export class UserService {
   /*
    * The work of observable is to wait for the response from the server
    */
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl + '/api/v1/user');
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);
   }
 
-  getUser(id: number): Observable<User> {
-    return this.http.get<User>(this.apiUrl + '/api/v1/user/' + id);
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 
-
-  addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl + '/api/v1/user', user);
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, user);
   }
 
-  deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + '/api/v1/user/' + id, {responseType: 'text' as 'json'});
+  updateUser(user: User, id: number): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/${id}`, user);
   }
 
-  updateUser(user: User): Observable<User> {
-    return this.http.put<User>(this.apiUrl + '/api/v1/users/' + user.userId, user);
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
