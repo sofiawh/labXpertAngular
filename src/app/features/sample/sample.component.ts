@@ -59,7 +59,6 @@ export class SampleComponent implements OnInit {
   // delete the sample
   onDelete(id: number) {
     this.store.dispatch(deleteSample({id}));
-    console.log(id);
   }
 
   // define the variables
