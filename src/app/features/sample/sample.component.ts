@@ -1,10 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {maxDateValidator} from "../../shared/utils/utils";
 import {Store} from "@ngrx/store";
 import {loadSamples, addSample, deleteSample} from "../../store/sample/actions/sample.actions"
 import {selectError, selectSamples} from "../../store/sample/selectors/sample.selectors"
 import {Patient} from "../../types/patient/patient";
 import {Gender} from "../../types/patient/gender";
+
+
+
 
 @Component({
   selector: 'app-sample',
@@ -21,16 +25,18 @@ export class SampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.sampleForm = this.formBuilder.group({
       analysisType: ['', Validators.required],
       sampleDescription: ['', Validators.required],
-      collectionDate: ['', Validators.required],
+      collectionDate: ['', [Validators.required, maxDateValidator()]],
       patientDTO: this.formBuilder.group({
         patientID: ['', Validators.required]
       })
     });
 
     this.store.dispatch(loadSamples());
+
   }
 
   onSubmit() {
