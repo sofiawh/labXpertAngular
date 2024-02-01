@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
 import {FeaturesModule} from "./features/features.module";
+import {AppStoreModule} from "./store/app.store.module";
+import {HttpClientModule} from "@angular/common/http";
+import {EffectsModule} from "@ngrx/effects";
+import {SampleEffects} from "./store/sample/effects/sample.effects";
 
 @NgModule({
   declarations: [
@@ -16,7 +20,10 @@ import {FeaturesModule} from "./features/features.module";
     AppRoutingModule,
     CoreModule,
     FeaturesModule,
-    SharedModule
+    SharedModule,
+    AppStoreModule,
+    HttpClientModule,
+    EffectsModule.forRoot([SampleEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
