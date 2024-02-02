@@ -12,11 +12,11 @@ import {PatientService} from "./patient/patient.service";
   declarations: [],
   imports: [
     CommonModule,
-    HttpClientModule,
+    HttpClientModule/*,
     SampleService,
-    PatientService
-  ],
+    PatientService*/
+  ]/*,
   providers: [SampleService, PatientService],  // Ajoutez PatientService aux providers
-
+*/
 })
 export class ApisModule { }

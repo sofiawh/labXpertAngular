@@ -10,6 +10,7 @@ import {AppStoreModule} from "./store/app.store.module";
 import {HttpClientModule} from "@angular/common/http";
 import {EffectsModule} from "@ngrx/effects";
 import {SampleEffects} from "./store/sample/effects/sample.effects";
+import {PatientEffects} from "./store/patient/effects/patient.effects";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {SampleEffects} from "./store/sample/effects/sample.effects";
     SharedModule,
     AppStoreModule,
     HttpClientModule,
-    EffectsModule.forRoot([SampleEffects])
+    EffectsModule.forRoot([SampleEffects, PatientEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

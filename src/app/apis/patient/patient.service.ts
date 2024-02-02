@@ -14,7 +14,7 @@ import {Observable} from "rxjs";
 export class PatientService {
 
   private patients: Patient[] = [];
-  private apiUrl = "http://localhost:9090";
+  private apiUrl = 'http://localhost:9090';
 
   /**
    * The constructor Loaded before the ngOnInit() method
@@ -27,23 +27,23 @@ export class PatientService {
    * The work of observable is to wait for the response from the server
    */
   getPatients(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(/*"http://localhost:9090/api/v1/patients"*/this.apiUrl + "/api/v1/patients");
+    return this.http.get<Patient[]>(this.apiUrl + '/api/v1/patients');
   }
 
   getPatient(id: number): Observable<Patient> {
-    return this.http.get<Patient>(this.apiUrl + "/api/v1/patients/" + id);
+    return this.http.get<Patient>(this.apiUrl + '/api/v1/patients/' + id);
   }
 
 
   addPatient(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(this.apiUrl + "/api/v1/patients", patient);
+    return this.http.post<Patient>(this.apiUrl + '/api/v1/patients', patient);
   }
 
   deletePatient(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + "/api/v1/patients/" + id, {responseType: 'text' as 'json'});
+    return this.http.delete<void>(this.apiUrl + '/api/v1/patients/' + id, {responseType: 'text' as 'json'});
   }
 
   updatePatient(patient: Patient): Observable<Patient> {
-    return this.http.put<Patient>(this.apiUrl + "/api/v1/patients/" + patient.patientID, patient);
+    return this.http.put<Patient>(this.apiUrl + '/api/v1/patients/' + patient.patientID, patient);
   }
 }
