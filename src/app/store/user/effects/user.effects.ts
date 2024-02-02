@@ -28,8 +28,8 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.addUser),
       switchMap(({ user }) =>
-        this.userService.addUser(user).pipe(
-          map((addedUser) => UserActions.addUserSuccess({ user: addedUser })),
+      this.userService.addUser(user).pipe(
+        map((addedUser) => UserActions.addUserSuccess({ user: addedUser })),
           catchError((error) => of(UserActions.addUserFailure({ error })))
         )
       )

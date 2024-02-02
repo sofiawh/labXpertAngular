@@ -10,10 +10,8 @@ import { UserEffects } from './user/effects/user.effects';
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({ samples: sampleReducer }),
-    EffectsModule.forRoot([SampleEffects]),
-    StoreModule.forRoot({ users: userReducer }),
-    EffectsModule.forRoot([UserEffects]),
+    StoreModule.forRoot({ samples: sampleReducer ,users: userReducer }),
+    EffectsModule.forRoot([SampleEffects,UserEffects]),
   ]
 })
 export class AppStoreModule { }
