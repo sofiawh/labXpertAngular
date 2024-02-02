@@ -13,7 +13,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ReagentService {
-  private reagent: Reagent[] = [];
+  private reagents: Reagent[] = [];
   private apiUrl = 'http://localhost:9090';
 
   /**
@@ -26,19 +26,19 @@ export class ReagentService {
    * The work of observable is to wait for the response from the server
    */
   getReagents(): Observable<Reagent[]> {
-    return this.http.get<Reagent[]>(this.apiUrl + '/api/v1/reagent');
+    return this.http.get<Reagent[]>(this.apiUrl + '/api/v1/reagents');
   }
 
   getReagent(id: number): Observable<Reagent> {
-    return this.http.get<Reagent>(this.apiUrl + '/api/v1/reagent/' + id);
+    return this.http.get<Reagent>(this.apiUrl + '/api/v1/reagents/' + id);
   }
 
   addReagent(reagent: Reagent): Observable<Reagent> {
-    return this.http.post<Reagent>(this.apiUrl + '/api/v1/reagent', reagent);
+    return this.http.post<Reagent>(this.apiUrl + '/api/v1/reagents', reagent);
   }
 
   deleteReagent(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + '/api/v1/reagent/' + id, {responseType: 'text' as 'json'});
+    return this.http.delete<void>(this.apiUrl + '/api/v1/reagents/' + id, {responseType: 'text' as 'json'});
   }
 
   updateReagent(reagent: Reagent): Observable<Reagent> {

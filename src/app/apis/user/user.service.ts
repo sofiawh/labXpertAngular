@@ -13,7 +13,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class UserService {
-  private user: User[] = [];
+  private users: User[] = [];
   private apiUrl = 'http://localhost:9090';
 
   /**

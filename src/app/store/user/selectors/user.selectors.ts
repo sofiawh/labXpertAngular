@@ -4,7 +4,7 @@ import { UserState } from '../reducers/user.reducers';
 /**
  * User state
  * @interface
- * @Author : Ayoub ait si ahmad
+ * @Author : Mariam Laghfiri
  */
 export const selectUserState = createFeatureSelector<UserState>('users');
 

@@ -18,7 +18,6 @@ export const deleteUser = createAction('[User] Delete User', props<{ id: number 
 export const deleteUserSuccess = createAction('[User] Delete User Success', props<{ id: number }>());
 export const deleteUserFailure = createAction('[User] Delete User Failure', props<{ error: any }>());
 
-export const updateUser = createAction('[User] Edit User', props<{user: User, id: number }>());
-export const updateUserSuccess = createAction('[User] Edit User Success', props<{user: User, id: number }>());
-export const updateUserFailure = createAction('[User] Edit User Failure', props<{ error: any }>());
-
+export const editUser = createAction('[User] Edit User', props<{user: User}>());
+export const editUserSuccess = createAction('[User] Edit User Success', props<{user: User }>());
+export const editUserFailure = createAction('[User] Edit User Failure', props<{ error: any }>());

@@ -34,6 +34,9 @@ export const userReducer = createReducer(
   on(UserActions.addUserSuccess, (state, { user }) => ({ ...state, users: [...state.users, user] })),
   on(UserActions.addUserFailure, (state, { error }) => ({ ...state, error })),
 
+  on(UserActions.editUserSuccess, (state, { user }) => ({...state, users: state.users.map(p => (p.userId === user.userId ? user : p)) })),
+  on(UserActions.editUserFailure, (state, { error }) => ({ ...state, error })),
+
   on(UserActions.deleteUserSuccess, (state, { id }) => ({ ...state, users: state.users.filter(s => s.userId !== id) })),
   on(UserActions.deleteUserFailure, (state, { error }) => ({ ...state, error })),
 );
