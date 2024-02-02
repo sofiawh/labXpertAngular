@@ -8,12 +8,14 @@ import { SampleEffects } from './sample/effects/sample.effects';
 import { UserEffects } from './user/effects/user.effects';
 import { reagentReducer } from './reagent/reducers/reagent.reducers';
 import { ReagentEffects } from './reagent/effects/reagent.effects';
+import { PatientEffects } from './patient/effects/patient.effects';
+import {patientReducer} from "./patient/reducers/patient.reducers";
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({ samples: sampleReducer ,users: userReducer , reagents: reagentReducer}),
-    EffectsModule.forRoot([SampleEffects,UserEffects,ReagentEffects]),
+    StoreModule.forRoot({ samples: sampleReducer ,users: userReducer , reagents: reagentReducer,patients: patientReducer}),
+    EffectsModule.forRoot([SampleEffects,UserEffects,ReagentEffects, PatientEffects]),
   ]
 })
 export class AppStoreModule { }

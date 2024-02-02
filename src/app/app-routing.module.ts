@@ -4,7 +4,8 @@ import { HomeComponent } from './features/home/home.component';
 import {SampleComponent} from "./features/sample/sample.component";
 import { UserComponent } from './features/user/user.component';
 import { ReagentComponent } from './features/reagent/reagent.component';
-
+import {PatientComponent} from "./features/patient/patient.component";
+import {SchedulingComponent} from "./features/scheduling/scheduling.component";
 /*
   To @Sofia and @Mariam here where we define the routes of our application
   the path is the url that will be displayed in the browser
@@ -32,6 +33,16 @@ const routes: Routes = [
     path: 'reagent',
     component: ReagentComponent,
     data: { title: 'Réactifs Page' }
+  },
+  {
+    path: 'patient',
+    component: PatientComponent,
+    data: { title: 'Patient Page' }
+  },
+  {
+    path: 'plannification',
+    component: SchedulingComponent,
+    data: { title: 'Plannification Page' }
   },
   // other routes...
 ];

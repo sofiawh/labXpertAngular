@@ -5,13 +5,17 @@ import { HomeComponent } from './home/home.component';
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 import { UserComponent } from './user/user.component';
 import { ReagentComponent } from './reagent/reagent.component';
+import { PatientComponent } from './patient/patient.component';
+import { SchedulingComponent } from './scheduling/scheduling.component';
 
 @NgModule({
   declarations: [
     SampleComponent,
     HomeComponent,
     UserComponent,
-    ReagentComponent
+    ReagentComponent,
+    PatientComponent,
+    SchedulingComponent
   ],
   exports: [
     SampleComponent
