@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
-import {loadPatients, addPatient, deletePatient} from "../../store/patient/actions/patient.actions"
+import {loadPatients, addPatient, deletePatient, editPatient} from "../../store/patient/actions/patient.actions"
 import {selectError, selectPatients} from "../../store/patient/selectors/patient.selectors"
 import {Patient} from "../../types/patient/patient";
 import {Gender} from "../../types/patient/gender";
@@ -13,6 +13,7 @@ import {Gender} from "../../types/patient/gender";
 })
 export class PatientComponent implements OnInit {
   editingPatientId: number | null = null;
+  isEditing: boolean = false;
 //   patients: Patient[] = [];
 
   patients$ = this.store.select(selectPatients);
@@ -46,19 +47,39 @@ export class PatientComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("this.patientForm.value*****" + JSON.stringify(this.patientForm.value));    if (this.patientForm.valid) {
-      this.store.dispatch(addPatient({patient: this.patientForm.value}));
+    if (this.patientForm.valid) {
+      const formData = this.patientForm.value;
+
+      if (this.isEditing) {
+        // Si c'est une édition, utilisez l'action editPatient
+        this.store.dispatch(editPatient({ patient: {...formData, patientId: this.editingPatientId }}));
+      } else {
+        // Sinon, c'est une ajout, utilisez l'action addPatient
+        this.store.dispatch(addPatient({ patient: formData }));
+      }
+
+      // Réinitialisez le formulaire après l'ajout ou la modification
       this.patientForm.reset();
+      this.isEditing = false;
+      this.editingPatientId = null;
+    // console.log("this.patientForm.value*****" + JSON.stringify(this.patientForm.value));    if (this.patientForm.valid) {
+    //   this.store.dispatch(addPatient({patient: this.patientForm.value}));
+    //   this.patientForm.reset();
     }
   }
+/*
+  onEdit(patient: Patient) {
+    this.store.dispatch(editPatient({ patient }));
+  }*/
 
   onDelete(id: number) {
     this.store.dispatch(deletePatient({id}));
   }
 
-    onEdit(patient: Patient) {
+    onEditForm(patient: Patient) {
     this.editingPatientId = patient.patientID;
     this.patientForm.setValue({
+     // patientID: patient.patientID,
       firstName: patient.firstName,
       lastName: patient.lastName,
       patientEmail: patient.patientEmail,

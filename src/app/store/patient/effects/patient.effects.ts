@@ -42,6 +42,18 @@ export class PatientEffects {
     )
   );
 
+  editPatient$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PatientActions.editPatient),
+      switchMap(({ patient }) =>
+        this.patientService.updatePatient(patient).pipe(
+          map((editedPatient) => PatientActions.editPatientSuccess({ patient: editedPatient })),
+          catchError((error) => of(PatientActions.editPatientFailure({ error })))
+        )
+      )
+    )
+  );
+
   deletePatient$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PatientActions.deletePatient),

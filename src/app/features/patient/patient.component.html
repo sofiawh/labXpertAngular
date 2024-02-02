@@ -124,7 +124,7 @@
               </div>
               <button type="submit"
                       class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Ajouter
+                {{ isEditing ? 'Modifier' : 'Ajouter' }}
               </button>
             </form>
           </div>
@@ -165,7 +165,9 @@
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                 Action
               </th>
-
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                Action
+              </th>
             </tr>
             </thead>
             <!--tbody *ngIf="patients.length > 0; else noData"
@@ -213,10 +215,10 @@
               </td>
               <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                 <!-- TODO : @ayoub i need to fix this -->
-                <button (click)="onEdit(patient)" disabled
+                <button (click)="onEditForm(patient)"
                         data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                         class="text-indigo-600 hover:text-indigo-900">
-                  Edit
+                  Editer
                 </button>
               </td>
               <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

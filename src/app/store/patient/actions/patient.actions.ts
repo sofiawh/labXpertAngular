@@ -18,6 +18,11 @@ export const deletePatient = createAction('[Patient] Delete Patient', props<{ id
 export const deletePatientSuccess = createAction('[Patient] Delete Patient Success', props<{ id: number }>());
 export const deletePatientFailure = createAction('[Patient] Delete Patient Failure', props<{ error: any }>());
 
+export const editPatient = createAction('[Patient] Edit Patient', props<{ patient: Patient }>());
+
+export const editPatientSuccess = createAction('[Patient] Edit Patient Success', props<{ patient: Patient }>());
+
+export const editPatientFailure = createAction('[Patient] Edit Patient Failure', props<{ error: any }>());
 
 /*
 export const addPatient = createAction('[Patient] Add Patient', props<{ patient: Patient }>());
