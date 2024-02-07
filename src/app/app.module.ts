@@ -11,6 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {EffectsModule} from "@ngrx/effects";
 import {SampleEffects} from "./store/sample/effects/sample.effects";
 import {PatientEffects} from "./store/patient/effects/patient.effects";
+import {SchedulingEffects} from "./store/scheduling/effects/scheduling.effects";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {PatientEffects} from "./store/patient/effects/patient.effects";
     SharedModule,
     AppStoreModule,
     HttpClientModule,
-    EffectsModule.forRoot([SampleEffects, PatientEffects])
+    EffectsModule.forRoot([SampleEffects, PatientEffects, SchedulingEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

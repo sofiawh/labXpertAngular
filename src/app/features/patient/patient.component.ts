@@ -77,8 +77,9 @@ export class PatientComponent implements OnInit {
   }
 
     onEditForm(patient: Patient) {
+
     this.editingPatientId = patient.patientID;
-    this.patientForm.setValue({
+    this.patientForm.patchValue/*setValue*/({
      // patientID: patient.patientID,
       firstName: patient.firstName,
       lastName: patient.lastName,
@@ -88,6 +89,8 @@ export class PatientComponent implements OnInit {
       address: patient.address,
       phoneNumber: patient.phoneNumber
     });
+      this.isEditing= true;
+      console.log("onEditForm******"+this.isEditing)
   }
 
 

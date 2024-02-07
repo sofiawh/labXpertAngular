@@ -1,19 +1,20 @@
 import {Injectable} from '@angular/core';
-import {Patient} from 'src/app/types/patient/patient';
+import {Scheduling} from 'src/app/types/scheduling/scheduling';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+//import {Scheduling} from "../../types/scheduling/scheduling";
 
 /**
- * Sample service
+ * Scheduling service
  * @class
- * @Author : Ayoub ait si ahmad
+ * @Author : sofia
  */
 @Injectable({
   providedIn: 'root'
 })
-export class PatientService {
+export class SchedulingService {
 
-  private patients: Patient[] = [];
+  private schedulings: Scheduling[] = [];
   private apiUrl = 'http://localhost:9090';
 
   /**
@@ -26,24 +27,24 @@ export class PatientService {
   /*
    * The work of observable is to wait for the response from the server
    */
-  getPatients(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(this.apiUrl + '/api/v1/patients');
+  getSchedulings(): Observable<Scheduling[]> {
+    return this.http.get<Scheduling[]>(this.apiUrl + '/api/v1/schedulings');
   }
 
-  getPatient(id: number): Observable<Patient> {
-    return this.http.get<Patient>(this.apiUrl + '/api/v1/patients/' + id);
+  getScheduling(id: number): Observable<Scheduling> {
+    return this.http.get<Scheduling>(this.apiUrl + '/api/v1/schedulings/' + id);
   }
 
 
-  addPatient(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(this.apiUrl + '/api/v1/patients', patient);
+  addScheduling(scheduling: Scheduling): Observable<Scheduling> {
+    return this.http.post<Scheduling>(this.apiUrl + '/api/v1/schedulings', scheduling);
   }
 
-  deletePatient(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + '/api/v1/patients/' + id, {responseType: 'text' as 'json'});
+  deleteScheduling(id: number): Observable<void> {
+    return this.http.delete<void>(this.apiUrl + '/api/v1/schedulings/' + id, {responseType: 'text' as 'json'});
   }
 
-  updatePatient(patient: Patient): Observable<Patient> {
-    return this.http.put<Patient>(this.apiUrl + '/api/v1/patients/' + patient.patientID, patient);
+  updateScheduling(scheduling: Scheduling): Observable<Scheduling> {
+    return this.http.put<Scheduling>(this.apiUrl + '/api/v1/schedulings/' + scheduling.schedulingID, scheduling);
   }
 }
