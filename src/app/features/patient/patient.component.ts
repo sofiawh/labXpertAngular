@@ -16,8 +16,8 @@ export class PatientComponent implements OnInit {
   isEditing: boolean = false;
 //   patients: Patient[] = [];
 
-  patients$ = this.store.select(selectPatients);
-  error$ = this.store.select(selectError);
+patients$ = this.store.select(selectPatients);
+error$ = this.store.select(selectError);
 
   patientForm: FormGroup = new FormGroup({});
 

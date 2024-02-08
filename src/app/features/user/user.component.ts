@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {loadUsers,addUser,deleteUser} from "../../store/user/actions/user.actions"
 import {selectError, selectUsers} from "../../store/user/selectors/user.selectors"
+import { User } from 'src/app/types/user/user';
 
 /**
  * User component
@@ -15,7 +16,10 @@ import {selectError, selectUsers} from "../../store/user/selectors/user.selector
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  // define the variables
+
+  // editingUserId: number | null = null;
+  isEditing: boolean = false;
+
   users$ = this.store.select(selectUsers);
   error$ = this.store.select(selectError);
   userForm: FormGroup = new FormGroup({});
@@ -38,7 +42,9 @@ export class UserComponent implements OnInit {
     
 
     this.store.dispatch(loadUsers());
-    console.log(this.users$);
+    console.log("salam users", this.users$);
+    // this.editingUserId = null;
+
     
   }
 
@@ -49,7 +55,18 @@ export class UserComponent implements OnInit {
       this.userForm.reset();
     }
   }
-
+  onEdit(user: User) {
+    // this.editingUserId = user.userID;
+    // this.userForm.patchValue({
+    //   // userID: user.userID,
+    //   username: user.username,
+    //   email: user.email,
+    //   personalInfo: user.personalInfo,
+    //   userRole: user.userRole,
+    //   password: user.password
+    // });
+  }
+  
   onDelete(id: number) {
     this.store.dispatch(deleteUser({id}));
   }

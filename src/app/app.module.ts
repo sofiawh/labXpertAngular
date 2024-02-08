@@ -11,6 +11,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {EffectsModule} from "@ngrx/effects";
 import {SampleEffects} from "./store/sample/effects/sample.effects";
 import {PatientEffects} from "./store/patient/effects/patient.effects";
+import { UserEffects } from './store/user/effects/user.effects';
+import { ReagentEffects} from './store/reagent/effects/reagent.effects';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import {PatientEffects} from "./store/patient/effects/patient.effects";
     SharedModule,
     AppStoreModule,
     HttpClientModule,
-    EffectsModule.forRoot([SampleEffects, PatientEffects])
+    EffectsModule.forRoot([SampleEffects, PatientEffects, UserEffects, ReagentEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -51,7 +51,7 @@
                         Selectionner
                       </option>
                       <!-- Use *ngFor to loop over the patients array -->
-                      <option *ngFor="let patient of patients" [value]="patient.patientID">
+                      <option *ngFor="let patient of patients$ | async" [value]="patient.patientID">
                         {{ patient.firstName }} {{ patient.lastName }}
                       </option>
                     </select>

@@ -6,6 +6,8 @@ import { UserComponent } from './features/user/user.component';
 import { ReagentComponent } from './features/reagent/reagent.component';
 import {PatientComponent} from "./features/patient/patient.component";
 import {SchedulingComponent} from "./features/scheduling/scheduling.component";
+import { AnalysesComponent } from './features/analyses/analyses.component';
+import { ResultComponent } from './features/result/result.component';
 /*
   To @Sofia and @Mariam here where we define the routes of our application
   the path is the url that will be displayed in the browser
@@ -43,6 +45,16 @@ const routes: Routes = [
     path: 'plannification',
     component: SchedulingComponent,
     data: { title: 'Plannification Page' }
+  },
+  {
+    path: 'analyses',
+    component: AnalysesComponent,
+    data: { title: 'Analyses Page' }
+  },
+  {
+    path: 'result',
+    component: ResultComponent,
+    data: { title: 'Résultats Page' }
   },
   // other routes...
 ];
