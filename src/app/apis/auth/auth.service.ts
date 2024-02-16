@@ -39,7 +39,8 @@ export class AuthService {
       console.log('JWT décodé :', decodedJwt);
 
       this.username = decodedJwt.sub;
-      this.roles = decodedJwt.scope;
+      this.roles = decodedJwt.scope
+      console.log('ROLES AUTHHH :',this.roles)
       window.localStorage.setItem("jwt-token",this.accessToken);
     } catch (error) {
       console.error('Erreur lors du décodage du JWT :', error);

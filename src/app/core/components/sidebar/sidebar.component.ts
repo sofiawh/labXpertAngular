@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   constructor(public authService : AuthService, private router : Router) { }
 
   ngOnInit(): void {
+    console.log(this.authService.roles)
   }
 
 }

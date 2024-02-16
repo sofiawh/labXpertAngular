@@ -18,5 +18,6 @@ import {PatientService} from "./patient/patient.service";
   ]/*,
   providers: [SampleService, PatientService],  // Ajoutez PatientService aux providers
 */
+
 })
 export class ApisModule { }
