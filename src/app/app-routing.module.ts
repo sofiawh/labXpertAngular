@@ -4,6 +4,11 @@ import { HomeComponent } from './features/home/home.component';
 import {SampleComponent} from "./features/sample/sample.component";
 import {PatientComponent} from "./features/patient/patient.component";
 import {SchedulingComponent} from "./features/scheduling/scheduling.component";
+import {LoginComponent} from "./features/login/login.component";
+import {AdminTemplateComponent} from "./features/admin-template/admin-template.component";
+import {AuthenticationGuard} from "./apis/guards/authentication.guard";
+import {UserComponent} from "./features/user/user.component";
+import {NotAuthorizedComponent} from "./not-authorized/not-authorized.component";
 
 /*
   To @Sofia and @Mariam here where we define the routes of our application
@@ -13,26 +18,54 @@ import {SchedulingComponent} from "./features/scheduling/scheduling.component";
   Attention: don't forget to add the routerLink to the sidebar component template
  */
 const routes: Routes = [
+
   {
-    path: '',
-    component: HomeComponent,
-    data: { title: 'Accueil Page' }
+    path: 'login',
+    component: LoginComponent//,
+   // data: { title: 'Login Page' }
   },
   {
-    path: 'echantillon',
-    component: SampleComponent,
-    data: { title: 'Echantillon Page' }
+    path: '', redirectTo : '/login', pathMatch :"full"
   },
   {
-    path: 'patient',
-    component: PatientComponent,
-    data: { title: 'Patient Page' }
+    path: 'admin', component: AdminTemplateComponent, canActivate :[AuthenticationGuard],children : [
+      {
+        path: 'home',
+        component: HomeComponent,
+        data: { title: 'Accueil Page' }
+      },
+      {
+        path: 'echantillon',
+        component: SampleComponent,
+        data: { title: 'Echantillon Page' }
+      },
+      {
+        path: 'patient',
+        component: PatientComponent,
+        data: { title: 'Patient Page' }
+      },
+      {
+        path: 'plannification',
+        component: SchedulingComponent,
+        data: { title: 'Plannification Page' }
+      },
+      {
+        path: 'plannification',
+        component: SchedulingComponent,
+        data: { title: 'Plannification Page' }
+      },
+      {
+        path: 'utilisateur',
+        component: UserComponent, canActivate : [AuthenticationGuard],
+        data: { role:"ADMIN" }
+      },
+      {
+        path: 'notAuthorized',
+        component: NotAuthorizedComponent
+      },
+    ]
   },
-  {
-    path: 'plannification',
-    component: SchedulingComponent,
-    data: { title: 'Plannification Page' }
-  },
+
   // other routes...
 ];
 
